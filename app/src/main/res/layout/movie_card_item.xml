@@ -10,9 +10,83 @@
 
         <ImageView
             android:id="@+id/posterIV"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
+            android:layout_height="320dp"
+            android:layout_alignParentLeft="true"
+            android:padding="10dp"
+            android:scaleType="centerCrop"
+            android:src="@color/black" />
+
+        <TextView
+            android:id="@+id/titleTV"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher_round" />
+            android:layout_margin="8dp"
+            android:layout_toRightOf="@+id/posterIV"
+            android:text="Original title"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/overviewTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/titleTV"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toRightOf="@id/posterIV"
+            android:padding="4dp"
+            android:text="For best friends Becky and Hunter, life is all about conquering fears and pushing limits.
+             But after they climb 2,000 feet to the top of a remote, abandoned radio tower, they find themselves stranded with no way down.Now Becky and Hunter’s expert climbing skills will be put to the ultimate test as they desperately fight to survive the elements, a lack of supplies, and vertigo-inducing heights Server : https://divedigital.vip/movie/985939/fall  "
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/ratingTV"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overviewTV"
+            android:layout_margin="10dp"
+            android:layout_toRightOf="@id/posterIV"
+            android:background="@drawable/tv_badge_blue"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="9.8"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dateTV"
+            android:layout_toRightOf="@+id/ratingTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/overviewTV"
+            android:padding="8dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:layout_margin="8dp"
+            android:text="12/34/5678" />
+
+        <TextView
+            android:id="@+id/languageTV"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/overviewTV"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_toRightOf="@id/dateTV"
+            android:background="@drawable/tv_badge_red"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="7.5"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

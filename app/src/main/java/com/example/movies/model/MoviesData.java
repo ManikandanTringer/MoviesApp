@@ -1,8 +1,8 @@
-package com.example.movies;
+package com.example.movies.model;
 
 public class MoviesData {
-    private int id;
-    private float voteAverage;
+    private String id;
+    private String voteAverage;
     private String originalLanguage;
     private String originalTitle;
     private String backdrop_path;
@@ -11,7 +11,7 @@ public class MoviesData {
     private String release_date;
     private String overview;
 
-    public MoviesData(int id, float voteAverage, String originalLanguage, String originalTitle, String backdrop_path, String title, String posterPath, String release_date, String overview) {
+    public MoviesData(String id, String voteAverage, String originalLanguage, String originalTitle, String backdrop_path, String title, String posterPath, String release_date, String overview) {
 
         this.id = id;
         this.voteAverage = voteAverage;
@@ -24,19 +24,19 @@ public class MoviesData {
         this.overview = overview;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public float getVoteAverage() {
+    public String getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(float voteAverage) {
+    public void setVoteAverage(String voteAverage) {
         this.voteAverage = voteAverage;
     }
 

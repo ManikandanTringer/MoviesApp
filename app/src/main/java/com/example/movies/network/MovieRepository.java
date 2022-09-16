@@ -1,7 +1,11 @@
-package com.example.movies;
+package com.example.movies.network;
 
+import android.app.Application;
 import android.content.Context;
 import android.util.Log;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -9,8 +13,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.movies.model.MoviesData;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -18,47 +24,54 @@ import java.util.List;
 
 public class MovieRepository {
 
-    String baseURL = "";
+    final String baseURL = "https://api.themoviedb.org/3/discover/movie?api_key=9a2bdc61f7e9de98ec887d51db0cde00&sort_by=popularity.desc";
     JSONArray jsonArray;
     MoviesData moviesData;
     Context contexto;
     RequestQueue queue;
-    ArrayList<MoviesData> moviesDataArrayList=new ArrayList<>();
+    ArrayList<MoviesData> moviesDataArrayList = new ArrayList<>();
     private static final String TAG = "api";
+    private MutableLiveData<List<MoviesData>> moviesLiveData;
+    private Application application;
 
-    public ApiRepository(Context context){
-        contexto=context;
-        queue= Volley.newRequestQueue(contexto);
+    public MovieRepository(Context context) {
+        contexto = context;
+        queue = Volley.newRequestQueue(contexto);
 
     }
 
-    public List<MoviesData> callApi(String baseUrl) {
+//    public MovieRepository getMovies(){
+//    }
 
+    public MutableLiveData<List<MoviesData>> callApi() {
+    moviesLiveData=new MutableLiveData<>();
 
-        Log.d(TAG, "callApi: "+baseUrl);
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, "https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=6875a6037041f0fe5c4e5781f5c08b7e&text="+baseUrl+"&format=json&nojsoncallback=1", null,
+        Log.d(TAG, "callApi: " + baseURL);
+        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, baseURL, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-//                        JSONArray jsonArray ;
+                        JSONArray jsonArray;
                         try {
-                            JSONObject jsonObject = response.getJSONObject("photos");
-                            jsonArray = jsonObject.getJSONArray("photo");
+//                            JSONObject jsonObject = response.getJSONObject("results");
+//                            jsonArray = jsonObject.getJSONArray("photo");
+                            JSONArray jsonArray1 = response.getJSONArray("results");
                             Log.d(TAG, "onResponse: " + response);
-                            for (int i=0;i<jsonArray.length();i++){
-                                JSONObject object=jsonArray.getJSONObject(i);
-                                Log.d("res",object.getString("farm"));
-                                moviesData=new MoviesData(object.getString("farm"),object.getString("server"),object.getString("id"),object.getString("secret"));
-                                moviesDataArrayList.add(moviesData);
-//                                Log.d(TAG, "onResponse: "+photoInfo.getClass().getSimpleName());
+                            Log.d(TAG, "onResponse: RESULTS " + jsonArray1.getJSONObject(1).getString("id"));
+                            for (int i = 0; i < jsonArray1.length(); i++) {
+                               moviesData= new MoviesData(jsonArray1.getJSONObject(i).getString("id"), jsonArray1.getJSONObject(i).getString("vote_average"),
+                                        jsonArray1.getJSONObject(i).getString("original_language"), jsonArray1.getJSONObject(i).getString("original_title"),
+                                        jsonArray1.getJSONObject(i).getString("backdrop_path"), jsonArray1.getJSONObject(i).getString("title"),
+                                        jsonArray1.getJSONObject(i).getString("poster_path"), jsonArray1.getJSONObject(i).getString("release_date"), jsonArray1.getJSONObject(i).getString("overview"));
+                                    moviesDataArrayList.add(moviesData);
+                                Log.d(TAG, "onResponse:aaa "+moviesData);
                             }
-
-                        } catch (Exception e) {
+                            moviesLiveData.postValue(moviesDataArrayList);
+                            Log.d(TAG, "aaaaaaa: "+moviesDataArrayList);
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
-
                 },
                 new Response.ErrorListener() {
                     @Override
@@ -67,12 +80,12 @@ public class MovieRepository {
                     }
                 }
         );
-        Log.d(TAG, "onResponse:sdfg "+getRequest);
+        Log.d(TAG, "req  " + getRequest);
 
         queue.add(getRequest);
 
 
-        return moviesDataArrayList;
+        return moviesLiveData;
 
     }
 
