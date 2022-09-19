@@ -19,31 +19,34 @@ public class MoviesViewModel extends ViewModel {
     MutableLiveData<MoviesData> liveData;
     MutableLiveData<List<MoviesData>> moviesData;
 
-    public MoviesViewModel(){
-       moviesData=new MutableLiveData<>();
+    public MoviesViewModel() {
+        moviesData = new MutableLiveData<>();
 //        apiRepository= new MovieRepository(thigets);
 
 //        liveData= (MutableLiveData<MoviesData>)
 //                movieRepository.callApi();
 
     }
-    public void getApi(Context context){
-        movieRepository=new MovieRepository(context);
-        moviesData=movieRepository.callApi();
-        Log.d("api", "getApi: VIewModel"+moviesData);
+
+    public void getApi(Context context) {
+        movieRepository = new MovieRepository(context);
+        moviesData = movieRepository.callApi();
+        Log.d("api", "getApi: VIewModel" + moviesData);
     }
 
 
     public void setData(int id, float voteAverage, String originalLanguage, String originalTitle, String backdrop_path,
-                        String title, String posterPath, String release_date, String overview, Context context){
-        Log.d("live",liveData.toString());
+                        String title, String posterPath, String release_date, String overview, Context context) {
+        Log.d("live", liveData.toString());
     }
-    public LiveData<List<MoviesData>> getLiveData(){
+
+    public LiveData<List<MoviesData>> getLiveData() {
         return moviesData;
     }
-//    public LiveData<MoviesData> updateMovies(){
-//        moviesData.postValue((List<MoviesData>) movieRepository.getMovies());
-//    }
+
+    public MutableLiveData<List<MoviesData>> getMoviesListObserver() {
+        return moviesData;
+    }
 
 }
 

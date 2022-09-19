@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/movie_card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    android:layout_marginBottom="4dp"
+    app:cardElevation="2dp">
 
     <RelativeLayout
-        android:id="@+id/movie_card"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/posterIV"
-            android:layout_width="160dp"
-            android:layout_height="320dp"
+            android:layout_width="140dp"
+            android:layout_height="280dp"
             android:layout_alignParentLeft="true"
-            android:padding="10dp"
+            android:padding="4dp"
             android:scaleType="centerCrop"
             android:src="@color/black" />
 
@@ -48,7 +52,10 @@
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/overviewTV"
-            android:layout_margin="10dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_toRightOf="@id/posterIV"
             android:background="@drawable/tv_badge_blue"
             android:gravity="center"
@@ -60,15 +67,15 @@
 
         <TextView
             android:id="@+id/dateTV"
-            android:layout_toRightOf="@+id/ratingTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/overviewTV"
-            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@+id/ratingTV"
             android:gravity="center"
-            android:textAlignment="center"
-            android:layout_margin="8dp"
-            android:text="12/34/5678" />
+            android:padding="4dp"
+            android:text="12/34/5678"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/languageTV"
@@ -83,10 +90,10 @@
             android:background="@drawable/tv_badge_red"
             android:gravity="center"
             android:padding="8dp"
-            android:text="7.5"
+            android:text="EN"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="normal" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

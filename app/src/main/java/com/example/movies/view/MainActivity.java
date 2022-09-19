@@ -22,7 +22,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     ActivityMainBinding binding;
-    MoviesListAdapter adapter;
+   private MoviesListAdapter adapter;
+    private List<MoviesData> moviesData;
+    MoviesViewModel moviesViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,36 +32,36 @@ public class MainActivity extends AppCompatActivity {
         View view=binding.getRoot();
         setContentView(view);
         recyclerView=binding.movieRV;
-        adapter=new MoviesListAdapter(this);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        adapter=new MoviesListAdapter(this,moviesData);
+
+        recyclerView.setAdapter(adapter);
+
+
         getViewModel();
 
     }
 
     public void getViewModel(){
-        MoviesViewModel moviesViewModel=new ViewModelProvider(this).get(MoviesViewModel.class);
+         moviesViewModel=new ViewModelProvider(this).get(MoviesViewModel.class);
 //        moviesViewModel.setKey(id,secret,MainActivity.this);
-        adapter=new MoviesListAdapter(this);
+//        adapter=new MoviesListAdapter(this,moviesData);
         moviesViewModel.getApi(this);
-        moviesViewModel.getLiveData().observe(this, new Observer<List<MoviesData>>() {
+        moviesViewModel.getMoviesListObserver().observe(this, new Observer<List<MoviesData>>() {
             @Override
             public void onChanged(List<MoviesData> moviesData) {
-                adapter.setItems(moviesData);
+//                adapter.setItems(moviesData);
+                if(moviesData!=null){
+                    moviesData=moviesData;
+                    adapter.setMoviesList(moviesData);
+                }
                 Log.d("pp", "onChanged: "+moviesData.get(0).getTitle());
             }
         });
-//        moviesViewModel.getLiveData().observe(this, new Observer<MoviesData>() {
-//            @Override
-//            public void onChanged(MoviesData moviesData) {
-//                Log.d("some",moviesData.toString());
-//                text.setText(imageModel.getUsername());
-//                usernameTV.setText(imageModel.getUsername());
-//                locationTV.setText(imageModel.getLocation());
-//                viewsTV.setText(imageModel.getViews());
-//                descTV.setText(imageModel.getDesc());
-//                titleTV.setText(imageModel.getTitle());
-//            }
-//        });
-    }
+
+
+
+
+
+ }
 }
